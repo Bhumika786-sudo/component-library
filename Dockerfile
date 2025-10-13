@@ -1,31 +1,22 @@
-#  Build Stage 
+# Build stage 
 FROM node:20-alpine AS build
-
-# Required working directory name
 WORKDIR /verma_bhumika_ui_garden
 
-# Copy and install dependencies
-COPY package*.json ./
-RUN npm ci
+# Copy manifest files and install deps (tolerant of peer-deps)
+COPY package.json package-lock.json ./
+RUN npm ci --legacy-peer-deps --no-audit --no-fund \
+  || npm install --legacy-peer-deps --no-audit --no-fund
 
-# Copy the rest of the project and build production files
+# Copy source and build CRA
 COPY . .
 RUN npm run build
 
-# Production Stage 
 FROM node:20-alpine AS run
-
-# Same working directory
 WORKDIR /verma_bhumika_ui_garden
+RUN npm i -g serve
 
-# Install 'serve' to host the CRA build
-RUN npm install -g serve
-
-# Copy build output from previous stage
+# Copy CRA build output
 COPY --from=build /verma_bhumika_ui_garden/build ./build
 
-# Expose port 8083 (as required)
 EXPOSE 8083
-
-# Start the production server
 CMD ["serve", "-s", "build", "-l", "8083"]
