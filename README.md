@@ -26,7 +26,7 @@ Storybook provides:
 - Controls to modify props (text, color, disabled, etc.)
 - Live preview of component changes
 
----
+
 
 ### `npm test`
 
