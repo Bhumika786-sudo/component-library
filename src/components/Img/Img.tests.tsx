@@ -11,7 +11,13 @@ describe('Img Component', () => {
   });
 
   test('image changes style when disabled', () => {
-    render(<Img src="https://via.placeholder.com/150" alt="Disabled Image" disabled={true} />);
+    render(
+      <Img
+        src="https://via.placeholder.com/150"
+        alt="Disabled Image"
+        disabled={true}
+      />
+    );
     const imgElement = screen.getByAltText(/Disabled Image/i);
     expect(imgElement).toHaveStyle('cursor: not-allowed');
     expect(imgElement).toHaveStyle('filter: grayscale(100%)');

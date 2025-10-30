@@ -20,7 +20,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: 'Card Title',
-    content: 'This is the card content. It can contain any text or information you want to display.',
+    content:
+      'This is the card content. It can contain any text or information you want to display.',
     imageUrl: 'https://via.placeholder.com/400x200',
     disabled: false,
   },

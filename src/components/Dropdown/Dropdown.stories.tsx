@@ -22,7 +22,7 @@ export const Default: Story = {
     options: ['Option 1', 'Option 2', 'Option 3'],
     placeholder: 'Select an option',
     disabled: false,
-    backgroundColor: "#5c2020"
+    backgroundColor: '#5c2020',
   },
 };
 

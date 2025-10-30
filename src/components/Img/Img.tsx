@@ -6,15 +6,16 @@ const StyledImg = styled.img<ImgProps>`
   width: ${(props: ImgProps) => props.width || 'auto'};
   height: ${(props: ImgProps) => props.height || 'auto'};
   max-width: 100%;
-  background-color: ${(props: ImgProps) => props.disabled ? '#f0f0f0' : props.backgroundColor || 'transparent'};
+  background-color: ${(props: ImgProps) =>
+    props.disabled ? '#f0f0f0' : props.backgroundColor || 'transparent'};
   border-radius: ${(props: ImgProps) => props.borderRadius || '0'};
-  opacity: ${(props: ImgProps) => props.disabled ? 0.4 : 1};
-  cursor: ${(props: ImgProps) => props.disabled ? 'not-allowed' : 'default'};
+  opacity: ${(props: ImgProps) => (props.disabled ? 0.4 : 1)};
+  cursor: ${(props: ImgProps) => (props.disabled ? 'not-allowed' : 'default')};
   transition: all 0.3s ease;
-  filter: ${(props: ImgProps) => props.disabled ? 'grayscale(100%)' : 'none'};
+  filter: ${(props: ImgProps) => (props.disabled ? 'grayscale(100%)' : 'none')};
 
   &:hover {
-    opacity: ${(props: ImgProps) => props.disabled ? 0.4 : 0.9};
+    opacity: ${(props: ImgProps) => (props.disabled ? 0.4 : 0.9)};
   }
 
   @media (max-width: 768px) {
@@ -23,14 +24,14 @@ const StyledImg = styled.img<ImgProps>`
   }
 `;
 
-const Img: React.FC<ImgProps> = ({ 
-  src, 
-  alt, 
-  width, 
-  height, 
-  disabled = false, 
+const Img: React.FC<ImgProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  disabled = false,
   backgroundColor,
-  borderRadius 
+  borderRadius,
 }) => {
   return (
     <StyledImg

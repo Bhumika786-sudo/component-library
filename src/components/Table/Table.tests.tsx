@@ -5,21 +5,16 @@ import Table from './Table';
 
 describe('Table Component', () => {
   test('renders table and is visible', () => {
-    render(
-      <Table 
-        headers={['Name', 'Age']} 
-        rows={[['John', '30']]} 
-      />
-    );
+    render(<Table headers={['Name', 'Age']} rows={[['John', '30']]} />);
     const headerElement = screen.getByText(/Name/i);
     expect(headerElement).toBeVisible();
   });
 
   test('table changes style when disabled', () => {
     const { container } = render(
-      <Table 
-        headers={['Name', 'Age']} 
-        rows={[['John', '30']]} 
+      <Table
+        headers={['Name', 'Age']}
+        rows={[['John', '30']]}
         disabled={true}
       />
     );

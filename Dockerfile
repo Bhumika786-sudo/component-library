@@ -1,22 +1,32 @@
-# Build stage 
-FROM node:20-alpine AS build
-WORKDIR /verma_bhumika_ui_garden
+# Build stage
+FROM node:18-alpine AS build
 
-# Copy manifest files and install deps (tolerant of peer-deps)
-COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps --no-audit --no-fund \
-  || npm install --legacy-peer-deps --no-audit --no-fund
+# Set working directory
+WORKDIR /bhumika_verma_ui_garden_build_checks
 
-# Copy source and build CRA
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy all project files
 COPY . .
+
+# Build the production app (skip tests in Docker)
 RUN npm run build
 
-FROM node:20-alpine AS run
-WORKDIR /verma_bhumika_ui_garden
-RUN npm i -g serve
+# Production stage
+FROM nginx:alpine
 
-# Copy CRA build output
-COPY --from=build /verma_bhumika_ui_garden/build ./build
+# Copy built files to nginx
+COPY --from=build /bhumika_verma_ui_garden_build_checks/build /usr/share/nginx/html
 
-EXPOSE 8083
-CMD ["serve", "-s", "build", "-l", "8083"]
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 8018
+EXPOSE 8018
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

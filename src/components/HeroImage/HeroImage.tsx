@@ -28,10 +28,12 @@ const HeroContainer = styled.div<HeroContainerProps>`
   position: relative;
   width: 100%;
   height: ${(props: HeroContainerProps) => props.height || '400px'};
-  background-color: ${(props: HeroContainerProps) => props.disabled ? '#e0e0e0' : props.backgroundColor || '#000000'};
+  background-color: ${(props: HeroContainerProps) =>
+    props.disabled ? '#e0e0e0' : props.backgroundColor || '#000000'};
   overflow: hidden;
-  cursor: ${(props: HeroContainerProps) => props.disabled ? 'not-allowed' : 'default'};
-  opacity: ${(props: HeroContainerProps) => props.disabled ? 0.6 : 1};
+  cursor: ${(props: HeroContainerProps) =>
+    props.disabled ? 'not-allowed' : 'default'};
+  opacity: ${(props: HeroContainerProps) => (props.disabled ? 0.6 : 1)};
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
@@ -43,7 +45,8 @@ const HeroImg = styled.img<HeroImgProps>`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: ${(props: HeroImgProps) => props.disabled ? 'grayscale(100%)' : 'none'};
+  filter: ${(props: HeroImgProps) =>
+    props.disabled ? 'grayscale(100%)' : 'none'};
 `;
 
 const HeroOverlay = styled.div<HeroOverlayProps>`
@@ -52,7 +55,8 @@ const HeroOverlay = styled.div<HeroOverlayProps>`
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${(props: HeroOverlayProps) => props.disabled ? 'rgba(150, 150, 150, 0.5)' : 'rgba(0, 0, 0, 0.4)'};
+  background: ${(props: HeroOverlayProps) =>
+    props.disabled ? 'rgba(150, 150, 150, 0.5)' : 'rgba(0, 0, 0, 0.4)'};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,23 +86,29 @@ const HeroSubtitle = styled.p<HeroSubtitleProps>`
   }
 `;
 
-const HeroImage: React.FC<HeroImageProps> = ({ 
-  src, 
-  alt, 
-  title, 
-  subtitle, 
-  disabled = false, 
+const HeroImage: React.FC<HeroImageProps> = ({
+  src,
+  alt,
+  title,
+  subtitle,
+  disabled = false,
   backgroundColor,
   textColor,
-  height 
+  height,
 }) => {
   return (
-    <HeroContainer disabled={disabled} backgroundColor={backgroundColor} height={height}>
+    <HeroContainer
+      disabled={disabled}
+      backgroundColor={backgroundColor}
+      height={height}
+    >
       <HeroImg src={src} alt={alt} disabled={disabled} />
       {(title || subtitle) && (
         <HeroOverlay disabled={disabled}>
           {title && <HeroTitle textColor={textColor}>{title}</HeroTitle>}
-          {subtitle && <HeroSubtitle textColor={textColor}>{subtitle}</HeroSubtitle>}
+          {subtitle && (
+            <HeroSubtitle textColor={textColor}>{subtitle}</HeroSubtitle>
+          )}
         </HeroOverlay>
       )}
     </HeroContainer>
